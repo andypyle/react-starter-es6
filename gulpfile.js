@@ -5,8 +5,11 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     babelify = require('babelify'),
+    template = require('gulp-template'),
     assign = require('lodash.assign'),
     gutil = require('gulp-util'),
+    fs = require('fs'),
+    path = require('path'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
@@ -146,6 +149,49 @@ gulp.task('jshint', function() {
     return gulp.src(sources.js.in)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
+});
+
+
+// ### NEW COMPONENT GENERATOR
+gulp.task('generate', function(){
+    var componentName = process.argv[4] || null;
+    var checkPathJsx = './src/js/components/' + componentName + '.jsx';
+    var checkPathSass = './src/sass/components/' + componentName + '.sass';
+    
+    function checkFileExists(filepath){
+        try {
+            return fs.statSync(filepath).isFile();
+        }
+        catch(err) {
+            return false;
+        }
+    };
+
+    var generateSass = process.argv.indexOf('--sass') > -1;
+
+    var existsJsx = checkFileExists(checkPathJsx);
+    var existsSass = checkFileExists(checkPathSass);
+
+    if(componentName && !existsJsx && !existsSass && generateSass){
+        return [gulp.src('./templates/new.component.jsx')
+            .pipe(template({componentName:componentName}))
+            .pipe(rename(componentName + '.jsx'))
+            .pipe(gulp.dest('./src/js/components')),
+            gulp.src('./templates/new.component.sass')
+            .pipe(template({componentName:componentName}))
+            .pipe(rename(componentName + '.sass'))
+            .pipe(gulp.dest('./src/sass/components')),
+            gutil.log(gutil.colors.green('GENERATED: ' + componentName + '.jsx and ' + componentName + '.sass'))];
+    } else if(componentName && !existsJsx && !existsSass && !generateSass){
+        return [gulp.src('./templates/new.component.jsx')
+            .pipe(template({componentName:componentName}))
+            .pipe(rename(componentName + '.jsx'))
+            .pipe(gulp.dest('./src/js/components')),
+            gutil.log(gutil.colors.green('GENERATED: ' + componentName + '.jsx'))];
+    } else {
+        gutil.log(gutil.colors.red('ERROR: Component exists.'));
+        return false;
+    }
 });
 
 

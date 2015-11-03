@@ -22,3 +22,17 @@
 	@else
 		background-blend-mode: lighten
 
+
+
+// BEM Helpers
+=element($element)
+	@at-root 
+		#{&}__#{$element}
+			@content
+
+=modifier($modifier)
+	@at-root
+		#{&}--#{$modifier}
+			@content
+
+

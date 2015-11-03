@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 
-class Application extends React.Component {
+class Application extends Component {
 	render() {
 		return (
-			<span>Main Application component.</span>
+			<div>
+				<span>Main Application component.</span>
+			</div>
 		)
 	}
 }
