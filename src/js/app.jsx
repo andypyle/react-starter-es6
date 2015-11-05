@@ -9,6 +9,6 @@ import Application from './components/Application';
 window.onload = function(){
 	ReactDOM.render(
 		<Application />,
-		document.getElementById('main')
+		document.getElementById('appContainer')
 	);
 };

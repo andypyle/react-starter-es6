@@ -29,8 +29,15 @@ body
 	color: $dkGrey
 
 main
-	+row
+	+flex
 	color: $dkGrey
 
+#appContainer,
+#mainApplication
+	min-height: 100%
+
+#mainApplication
+	+flex(col)
+	+col(12)
+
 // Import component styles here.
-@import components/LoginForm

@@ -941,19 +941,31 @@ main {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  color: #1f1f1f;
+}
+
+#appContainer,
+#mainApplication {
+  min-height: 100%;
+}
+
+#mainApplication {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
      -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
           flex-shrink: 0;
-  width: 100%;
-  color: #1f1f1f;
+  -webkit-flex-basis: 100%;
+      -ms-flex-preferred-size: 100%;
+          flex-basis: 100%;
 }
